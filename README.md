@@ -1,33 +1,33 @@
 # McCrack-Xbox
 
-An unofficial browser-based recreation inspired by the Xbox Series X|S dashboard. It is designed as an interactive console-style shell rather than a static mockup.
+A browser-based Xbox Series X|S dashboard recreation project. The interface is designed around a full-screen console shell and controller-friendly navigation, using the official Xbox dashboard presentation as a visual reference.
 
-## Current features
+## Current build
 
-- Dashboard with recently launched shortcuts and pinned tiles
-- Guide overlay with Home, Profile & system, Friends & community, Notifications, Captures, Library, and Settings destinations
-- Game/app library with custom URL shortcuts, launch screen, optional iframe attempt, and open-in-new-tab fallback
-- Discover page and console-style Settings categories
-- Local profile name, accent color, pins, recent items, and custom shortcuts saved with browser localStorage
-- Keyboard navigation (arrow keys / WASD, Enter, Escape, G for Guide)
-- Xbox controller support via the browser Gamepad API (D-pad/stick, A, B, Menu where the browser exposes them)
-- Responsive layout and no build step or external dependencies
+- Full-screen dashboard with atmospheric wallpaper, top quick-access icons, horizontal game tiles, quick access cards, and recent items
+- Guide overlay with a console-style navigation rail and Profile, Friends, Notifications, Captures, Library, and Settings destinations
+- Dedicated Home, My games & apps, Game Pass discovery, Store, Search, Settings, Profile, Friends, Notifications, Captures, and launch screens
+- Keyboard and mouse interaction, keyboard focus movement, and browser Gamepad API input
+- Custom game/app URLs, library tiles, recent list, local profile, accent color, and background themes saved to browser localStorage
+- Game tile artwork loads from public game-library image URLs when available; gradient art is used as a fallback
+- Static site; no build step or external JavaScript dependencies
 
-## Run locally
+## Run / publish
 
-Open `index.html` in a modern browser, or serve this folder using any static web server.
+Open `index.html` in a modern browser, or enable GitHub Pages in **Settings → Pages**, selecting the `main` branch and `/(root)` folder.
 
-## Deploy with GitHub Pages
+Expected URL after Pages is enabled and published: https://patrickmango49.github.io/McCrack-Xbox/
 
-1. Open repository **Settings → Pages**.
-2. Under **Build and deployment**, choose **Deploy from a branch**.
-3. Select `main` and `/(root)`, then save.
-4. Wait for the deployment to finish.
+## Controls
 
-Expected URL: https://patrickmango49.github.io/McCrack-Xbox/
+- Arrow keys or WASD: move focus
+- Enter: select
+- Escape: back / close overlay
+- G: toggle the Guide
+- Xbox controller: D-pad or left stick to move, A to select, B to go back, Menu to toggle the Guide (browser Gamepad API support varies)
 
-## Important limitations
+## Honest limitations
 
-This is an independent fan-made browser recreation, not an actual Xbox operating system and not affiliated with or endorsed by Microsoft. A true 1:1 copy of the full console software is not possible from a static website: Xbox Network sign-in, friends, parties, messages, cloud saves, official achievements, Quick Resume, Store entitlements, system-level settings, and native game launching require Microsoft's services or console-level access and are not implemented here. Game sites may block iframe embedding; use the new-tab option when that happens.
+This is a fan-made browser recreation, not an actual Xbox OS and not affiliated with Microsoft. It does not connect to Xbox Network, Xbox account sign-in, official achievements, parties, messages, cloud saves, Quick Resume, subscriptions, purchases, or native console game launching. Web games can only be embedded when their websites allow iframe embedding; otherwise use the open-in-new-tab action. Do not enter Microsoft account credentials into this recreation.
 
-The project can continue to get closer visually and behaviorally through original frontend code and publicly available references, but it should not collect Xbox passwords or impersonate Microsoft's sign-in flow.
+The goal is to keep improving the visual fidelity and interaction details against publicly available Xbox dashboard references while keeping the implementation an independent browser project.
