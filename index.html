@@ -47,20 +47,77 @@
 }
 @media(prefers-reduced-motion:reduce){.backdrop:before{animation:none!important}*,*:before,*:after{scroll-behavior:auto!important;transition-duration:.01ms!important}}
 
+
+/* Rebuilt Xbox One-inspired home dashboard */
+:root{--xone-green:#9bf00b}
+.console{background:#070b11}
+.backdrop{background:radial-gradient(ellipse at 15% 20%,#1e4d4a75,transparent 40%),radial-gradient(ellipse at 82% 28%,#244d7370,transparent 38%),radial-gradient(ellipse at 50% 110%,#33451d88,transparent 50%),linear-gradient(125deg,#080d14,#14212b 54%,#070b12)!important}
+.backdrop:before{inset:-25%;opacity:.6;background:radial-gradient(circle at 22% 28%,#b8f3ff18 0 1px,transparent 2px),radial-gradient(circle at 70% 60%,#b8f3ff14 0 1px,transparent 2px),radial-gradient(ellipse at center,transparent 30%,#8bf0c008 70%,transparent 75%);background-size:130px 130px,190px 190px,100% 100%;animation:xoneDrift 45s linear infinite}
+@keyframes xoneDrift{from{transform:translate3d(-1%,0,0) rotate(0)}to{transform:translate3d(1%,-1%,0) rotate(3deg)}}
+.topbar{height:76px;padding-inline:clamp(18px,3.2vw,52px);background:linear-gradient(180deg,#060a11e8,#060a1160,transparent)}
+.profile{min-width:180px}.avatar{box-shadow:0 0 0 2px #ffffff20,0 4px 16px #0008}
+.topnav{gap:10px}.navicon{width:42px;height:42px;border-radius:5px;font-size:20px}
+.navicon.active{background:#ffffff20;box-shadow:inset 0 -3px var(--accent)}
+.screen{inset:72px 0 29px;padding:clamp(14px,2vh,24px) clamp(18px,4.1vw,66px) 26px;scrollbar-width:thin}
+#view-home{display:none;min-height:100%;padding-bottom:16px}
+#view-home.active{display:flex;flex-direction:column;gap:0}
+.xone-home-head{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:0 0 clamp(10px,1.7vh,20px)}
+.xone-greeting .sub{font-size:10px;letter-spacing:2.4px;color:#c8d5df;font-weight:700}
+.xone-greeting h1{font-size:clamp(24px,2.6vw,36px);font-weight:500;letter-spacing:-1px;margin:5px 0 3px}
+.xone-greeting p{font-size:12px;color:#c4d0db;margin:0}
+.xone-sectionhead{margin:0 0 8px!important;min-height:24px}
+.xone-sectionhead h2{font-size:13px!important;text-transform:uppercase;letter-spacing:1.2px;font-weight:700!important;color:#edf2f7}
+.xone-sectionhead button{font-size:10px;letter-spacing:.7px;color:#c5d0da}
+#view-home #recentGames{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:clamp(7px,1.1vw,15px);overflow:visible;padding:5px 3px 12px;margin:0 -3px clamp(15px,2.5vh,27px)}
+#view-home #recentGames .addcard{display:none}
+#view-home #recentGames .gamecard{position:relative;flex:none;width:100%;min-width:0;height:clamp(122px,20vh,190px);border-radius:3px;box-shadow:0 5px 20px #0007;outline:1px solid #ffffff20;outline-offset:-1px;transition:transform .16s,outline-color .16s,box-shadow .16s;overflow:hidden}
+#view-home #recentGames .gamecard:before{background:linear-gradient(0deg,#05070cf7 0%,#07090ca8 24%,#07090c00 72%),linear-gradient(135deg,var(--c1,#35514c),var(--c2,#111823))}
+#view-home #recentGames .gamecard img{transition:transform .35s,filter .25s;filter:saturate(1.08) contrast(1.03)}
+#view-home #recentGames .gamecard:hover img,#view-home #recentGames .gamecard.selected img{transform:scale(1.07)}
+#view-home #recentGames .gamecard.selected,#view-home #recentGames .gamecard:focus-visible{transform:translateY(-3px) scale(1.025);outline:2px solid var(--accent);outline-offset:0;box-shadow:0 0 0 4px #0007,0 14px 28px #0009;z-index:3}
+#view-home #recentGames .card-copy{left:9px;right:7px;bottom:10px}
+#view-home #recentGames .card-copy small{font-size:8px;letter-spacing:1.2px;color:#d8e1e9}
+#view-home #recentGames .card-copy strong{font-size:clamp(10px,.9vw,13px);line-height:1.18;text-shadow:0 2px 8px #000}
+#view-home #recentGames .card-copy .statusline{display:none}
+#view-home #recentGames .card-symbol{top:20%;font-size:42px;color:#ffffffbb}
+.xone-shortcut-heading{margin-bottom:9px!important}
+.xone-live{display:flex;align-items:center;gap:7px;font-size:9px;letter-spacing:1px;color:#a9b8c6}
+.xone-live i{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 9px var(--accent)}
+#view-home .xone-explore-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(8px,1.1vw,15px);margin-top:0}
+#view-home .xone-explore-grid .shortcut{position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;min-width:0;min-height:clamp(104px,17vh,155px);padding:clamp(12px,1.5vw,20px);border-radius:3px;border:1px solid #ffffff20;box-shadow:0 6px 22px #0004;overflow:hidden;transition:transform .17s,border-color .17s,filter .17s}
+#view-home .xone-explore-grid .shortcut:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,#ffffff0b,transparent 55%);pointer-events:none}
+#view-home .xone-explore-grid .shortcut .sicon{font-size:26px;margin:0 0 auto;color:#f4f8fb;position:relative}
+#view-home .xone-explore-grid .shortcut strong{font-size:clamp(11px,1.05vw,14px);position:relative}
+#view-home .xone-explore-grid .shortcut small{font-size:clamp(9px,.85vw,11px);position:relative;color:#d0d9e1}
+#view-home .xone-explore-grid .shortcut .xone-card-arrow{position:absolute;right:13px;top:12px;color:#ffffffa8;font-size:16px}
+#view-home .xone-explore-grid .shortcut:not(.gamepass):not(.customize):not(.controller){background:linear-gradient(125deg,#31515feF,#14232ff7 78%)}
+#view-home .xone-explore-grid .shortcut.customize{background:linear-gradient(125deg,#493655f2,#211d31f7 78%)}
+#view-home .xone-explore-grid .shortcut.gamepass{background:linear-gradient(125deg,#3c5b25f2,#162518f7 78%)}
+#view-home .xone-explore-grid .shortcut.controller{background:linear-gradient(125deg,#344751f2,#17222bf7 78%)}
+#view-home .xone-explore-grid .shortcut:hover,#view-home .xone-explore-grid .shortcut:focus-visible{transform:translateY(-3px);border-color:#ffffffa8;filter:brightness(1.12);box-shadow:0 0 0 1px #ffffff50,0 12px 26px #0008}
+#view-home .xone-explore-grid .shortcut:active{transform:scale(.99)}
+.gamecard:focus-visible,.shortcut:focus-visible{outline:2px solid var(--accent)!important;outline-offset:2px!important}
+@media(max-width:1100px){#view-home #recentGames{grid-template-columns:repeat(4,minmax(0,1fr))}#view-home #recentGames .gamecard{height:clamp(110px,17vh,155px)}#view-home .xone-explore-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.topbar{gap:8px;padding-inline:12px}.profile{min-width:0}.profilecopy{display:none}.topnav{gap:2px}.navicon{width:34px;height:36px}.topright{min-width:0;gap:6px}.topright .status{display:none}.screen{padding-inline:14px}.xone-greeting h1{font-size:23px}#view-home #recentGames{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}#view-home #recentGames .gamecard{height:clamp(105px,16vh,145px)}#view-home .xone-explore-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}#view-home .xone-explore-grid .shortcut{min-height:108px}.xone-live{display:none}}
+@media(prefers-reduced-motion:reduce){.backdrop:before{animation:none!important}*,*:before,*:after{transition-duration:.01ms!important}}
+
 </style></head><body>
 <div class="console" id="console"><div class="backdrop" id="backdrop"></div>
 <header class="topbar"><button class="profile" data-open="profile" aria-label="Profile"><span class="avatar" id="avatar">P</span><span class="profilecopy"><strong id="tagTop">Patrick_Mango</strong><small><span style="color:var(--accent)">●</span> &nbsp;Available</small></span></button>
 <nav class="topnav" aria-label="Console navigation"><button class="navicon active" data-page="home" title="Home" aria-label="Home">⌂</button><button class="navicon" data-page="library" title="My games & apps" aria-label="My games and apps">▥</button><button class="navicon" data-page="gamepass" title="Game Pass" aria-label="Game Pass">◉</button><button class="navicon" data-page="store" title="Store" aria-label="Store">▣</button><button class="navicon" data-page="search" title="Search" aria-label="Search">⌕</button><button class="navicon" data-page="settings" title="Settings" aria-label="Settings">⚙</button></nav>
 <div class="topright"><span class="status"><span class="dot"></span>Connected</span><span class="clock" id="clock">4:56 PM</span></div></header>
 <main class="screen" id="screen">
-<section class="view active" id="view-home"><div class="welcome"><div><div class="sub">HOME</div><h1>Good evening, <span id="welcomeName">Patrick</span></h1></div><div class="headactions"><button class="btn ghost" id="openGuideTop">☰ &nbsp; Guide</button></div></div>
-<div class="sectionhead"><h2>My games &amp; apps</h2><button data-page="library">My games & apps &nbsp;›</button></div><div class="gamestrip" id="recentGames"></div>
-<div class="sectionhead"><h2>My games & apps</h2><button data-page="library">See all &nbsp;›</button></div><div class="shortcutgrid">
-<button class="shortcut" data-page="library"><span class="sicon">▦</span><strong>Browse your games</strong><small>All your games and apps</small></button>
-<button class="shortcut customize" data-setting="personalization"><span class="sicon">◌</span><strong>Customize your Home</strong><small>Backgrounds, colors and layout</small></button>
-<button class="shortcut gamepass" data-page="gamepass"><span class="sicon">✳</span><strong>Explore Game Pass</strong><small>Discover something new</small></button>
-<button class="shortcut controller" data-open="devices"><span class="sicon">⌘</span><strong>Play your way</strong><small>Controller, keyboard and mouse</small></button>
-</div><div class="sectionhead"><h2>Recently added</h2><button id="addGameHome">＋ Add a game</button></div><div class="gamestrip" id="recentAdded"></div>
+<section class="view active" id="view-home">
+<div class="xone-home-head"><div class="xone-greeting"><div class="sub">HOME</div><h1>Welcome back, <span id="welcomeName">Patrick</span></h1><p>What are we playing today?</p></div><div class="headactions"><button class="btn ghost" id="openGuideTop">☰ &nbsp; Guide</button></div></div>
+<div class="sectionhead xone-sectionhead"><h2>My games</h2><button data-page="library">MY GAMES &amp; APPS&nbsp; ›</button></div>
+<div class="gamestrip" id="recentGames"></div>
+<div class="sectionhead xone-sectionhead xone-shortcut-heading"><h2>Explore</h2><span class="xone-live"><i></i> ALL SYSTEMS READY</span></div>
+<div class="shortcutgrid xone-explore-grid">
+<button class="shortcut" data-page="library"><span class="sicon">▦</span><strong>Browse your games</strong><small>Your full collection</small><span class="xone-card-arrow">↗</span></button>
+<button class="shortcut customize" data-setting="personalization"><span class="sicon">◌</span><strong>Personalize</strong><small>Make the dashboard yours</small><span class="xone-card-arrow">↗</span></button>
+<button class="shortcut gamepass" data-page="gamepass"><span class="sicon">✳</span><strong>Game Pass</strong><small>Discover something new</small><span class="xone-card-arrow">↗</span></button>
+<button class="shortcut controller" data-open="devices"><span class="sicon">⌘</span><strong>Controller &amp; devices</strong><small>Keyboard, mouse and gamepad</small><span class="xone-card-arrow">↗</span></button>
+</div>
 </section>
 <section class="view" id="view-library"><div class="pagehero"><div class="sub">YOUR COLLECTION</div><h1>My games & apps</h1><p>All games and apps added to your browser console.</p><button class="btn" id="addGame">＋ Add a game or app</button></div><div class="sectionhead"><h2>All</h2><button id="sortBtn">Sort: A–Z ↕</button></div><div class="appgrid" id="libraryGrid"></div></section>
 <section class="view" id="view-gamepass"><div class="pagehero"><div class="sub">DISCOVER YOUR NEXT FAVORITE</div><h1>Game Pass</h1><p>A console-style discovery page. This demo does not verify subscriptions or entitlement.</p></div><div class="gamestrip" id="passGames"></div><div class="shortcutgrid"><button class="shortcut" data-page="library"><span class="sicon">▦</span><strong>Browse your collection</strong><small>Open games and apps</small></button><button class="shortcut" data-page="store"><span class="sicon">▣</span><strong>Explore Store</strong><small>Browse game destinations</small></button><button class="shortcut" data-open="add"><span class="sicon">＋</span><strong>Add a game</strong><small>Add a browser launch link</small></button><button class="shortcut" data-setting="personalization"><span class="sicon">◌</span><strong>Make it yours</strong><small>Customize your console</small></button></div></section>
