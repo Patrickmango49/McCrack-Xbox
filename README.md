@@ -1,30 +1,33 @@
-# McCrack Xbox
+# McCrack-Xbox
 
-An unofficial, Xbox Series X|S-inspired dashboard recreation built as a static web app.
+An unofficial browser-based recreation inspired by the Xbox Series X|S dashboard. It is designed as an interactive console-style shell rather than a static mockup.
 
-## Features
+## Current features
 
-- Responsive dashboard, game library, discovery page, achievements, and settings
-- Keyboard and mouse navigation
-- Gamepad navigation through the browser Gamepad API (D-pad / stick, A, B, and Menu)
-- Add custom game or app launch links
-- Customizable accent colors
-- Local demo achievements and browser-stored preferences
-- No build step or external dependencies required
+- Dashboard with recently launched shortcuts and pinned tiles
+- Guide overlay with Home, Profile & system, Friends & community, Notifications, Captures, Library, and Settings destinations
+- Game/app library with custom URL shortcuts, launch screen, optional iframe attempt, and open-in-new-tab fallback
+- Discover page and console-style Settings categories
+- Local profile name, accent color, pins, recent items, and custom shortcuts saved with browser localStorage
+- Keyboard navigation (arrow keys / WASD, Enter, Escape, G for Guide)
+- Xbox controller support via the browser Gamepad API (D-pad/stick, A, B, Menu where the browser exposes them)
+- Responsive layout and no build step or external dependencies
 
 ## Run locally
 
-Open `index.html` in a modern browser, or serve the repository with any static web server.
+Open `index.html` in a modern browser, or serve this folder using any static web server.
 
 ## Deploy with GitHub Pages
 
-1. Open the repository's **Settings → Pages**.
-2. Under **Build and deployment**, select **Deploy from a branch**.
-3. Choose the `main` branch and `/ (root)` folder, then save.
-4. Wait for GitHub Pages to publish the site.
+1. Open repository **Settings → Pages**.
+2. Under **Build and deployment**, choose **Deploy from a branch**.
+3. Select `main` and `/(root)`, then save.
+4. Wait for the deployment to finish.
 
-The site will be available at `https://patrickmango49.github.io/McCrack-Xbox/` once Pages is enabled.
+Expected URL: https://patrickmango49.github.io/McCrack-Xbox/
 
-## Notes
+## Important limitations
 
-This is an independent fan-made interface concept. It is not affiliated with, endorsed by, or connected to Microsoft or Xbox services. The profile, gamer score, and achievements are local demo features; Microsoft account sign-in, Xbox Network services, purchases, and official achievements are not implemented. Game launch links are provided by the user.
+This is an independent fan-made browser recreation, not an actual Xbox operating system and not affiliated with or endorsed by Microsoft. A true 1:1 copy of the full console software is not possible from a static website: Xbox Network sign-in, friends, parties, messages, cloud saves, official achievements, Quick Resume, Store entitlements, system-level settings, and native game launching require Microsoft's services or console-level access and are not implemented here. Game sites may block iframe embedding; use the new-tab option when that happens.
+
+The project can continue to get closer visually and behaviorally through original frontend code and publicly available references, but it should not collect Xbox passwords or impersonate Microsoft's sign-in flow.
