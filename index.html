@@ -50,6 +50,36 @@
 @media(max-width:700px){.shell{min-height:480px}.topbar{height:82px;padding:13px 13px 0;grid-template-columns:1fr auto;align-items:start}.profile{gap:8px}.avatar{width:36px;height:36px;font-size:15px}.user-name{font-size:12px}.user-logo{width:52px;height:14px;margin-top:2px}.top-icons{position:absolute;top:62px;left:0;right:0;padding:0;gap:18px}.top-icon{width:25px;height:25px}.clock-area{gap:7px}.clock-icons{gap:4px}.clock-icons img{width:17px;height:17px}.clock{font-size:19px}.content{inset:90px 0 0;padding:0 11px 28px;justify-content:flex-end}.game-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;width:100%}.game-card{aspect-ratio:.78}.game-card:nth-child(n+6){display:none}.game-card .game-name{font-size:9px;left:5px;bottom:5px}.game-card.selected{transform:translateY(-6px) scale(1.04)}.rectangle-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:15px}.rectangle-card{height:clamp(75px,12vh,110px)}.rectangle-card p{font-size:10px;left:8px;bottom:8px}.selection-label{display:none}.hintbar{height:24px;padding:0 9px;gap:10px;font-size:9px}.hint:nth-child(3){display:none}.hint-right{font-size:8px}}
 @media(max-height:680px) and (min-width:701px){.topbar{height:90px;padding-top:14px}.content{padding-bottom:24px}.game-grid{width:min(950px,100%)}.game-card{aspect-ratio:.73}.rectangle-row{margin-top:15px}.rectangle-card{height:clamp(78px,15vh,125px)}.selection-label{bottom:calc(24px + 180px)}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important}}
+
+/* McCrack Xbox: interaction layer */
+.profile-name{transition:color .2s}.profile:hover .profile-name{color:var(--green2)}
+.game-card,.rectangle-card,.top-icon,.profile{transition:transform .2s ease,filter .2s ease,outline-color .2s ease,box-shadow .2s ease}
+.game-card.selected{transform:translateY(-9px) scale(1.045);box-shadow:0 12px 34px #0009,0 0 0 2px var(--green2),0 0 24px #20d46b55;z-index:2}
+.rectangle-card.selected{transform:translateY(-5px);box-shadow:0 0 0 3px var(--green2),0 12px 34px #0009}
+.top-icon.active{filter:drop-shadow(0 0 8px #20d46b)}
+.modal-backdrop{position:absolute;inset:0;z-index:30;display:none;align-items:center;justify-content:center;background:#020609bd;backdrop-filter:blur(14px);padding:22px}
+.modal-backdrop.open{display:flex;animation:modalFade .18s ease-out}
+.modal{width:min(570px,100%);max-height:min(690px,90%);overflow:auto;background:linear-gradient(145deg,#17252bfa,#080d14fa);border:1px solid #ffffff28;border-radius:18px;padding:26px;box-shadow:0 24px 100px #000b}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
+.modal h2{font-size:25px;font-weight:650;margin:0}.modal p{color:#b8c4c9;line-height:1.5}.modal-close{background:#ffffff12;border:1px solid #ffffff24;border-radius:10px;width:38px;height:38px;font-size:22px}
+.modal-label{display:block;color:#c8d2d6;font-size:13px;margin:18px 0 8px}
+.modal input,.modal select{width:100%;padding:12px 13px;background:#05090dcc;color:white;border:1px solid #ffffff2a;border-radius:9px;font:inherit;outline:none}
+.modal input:focus,.modal select:focus{border-color:var(--green2);box-shadow:0 0 0 3px #20d46b25}
+.modal-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.xbtn{padding:11px 15px;border-radius:9px;background:#ffffff12;border:1px solid #ffffff25;font-weight:600}
+.xbtn.primary{background:var(--green);color:#031108;border-color:transparent}
+.setting-row{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:14px 0;border-bottom:1px solid #ffffff15}
+.setting-row small{display:block;color:#aebbc0;margin-top:4px}
+.achievement-list{display:grid;gap:10px;margin-top:15px}
+.achievement{display:flex;align-items:center;gap:12px;padding:12px;background:#ffffff08;border:1px solid #ffffff12;border-radius:10px}
+.achievement-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:#20d46b1c;color:var(--green2);font-size:21px}
+.achievement strong{display:block}.achievement small{color:#aebbc0}
+.modal .score{font-size:14px;color:var(--green2);font-weight:700}
+.controller-pill{position:fixed;left:50%;bottom:58px;transform:translateX(-50%);z-index:25;background:#080d14df;border:1px solid #ffffff22;border-radius:30px;padding:8px 14px;color:#d9e1e4;font-size:12px;display:none;white-space:nowrap;backdrop-filter:blur(10px)}
+.controller-pill.show{display:block;animation:modalFade .2s ease-out}
+@keyframes modalFade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.game-card,.rectangle-card,.top-icon,.profile{transition:none}.modal-backdrop.open{animation:none}}
+
 </style>
 </head>
 <body>
@@ -88,6 +118,15 @@
 </div>
 </main>
 <div class="hintbar"><span class="hint"><span class="key">A</span> Select</span><span class="hint"><span class="key">B</span> Back</span><span class="hint"><span class="key">☰</span> Options</span><span class="hint-right">McCrack Xbox · Dashboard concept</span></div>
+
+<div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+ <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-head"><h2 id="modalTitle">Dashboard settings</h2><button class="modal-close" id="modalClose" aria-label="Close">×</button></div>
+  <div id="modalContent"></div>
+ </section>
+</div>
+<div class="controller-pill" id="controllerPill">Controller connected · A Select · B Back</div>
+
 <div class="toast" id="toast" role="status"></div><div class="cursor-dot" id="cursorDot"></div>
 </div>
 <script>
@@ -104,8 +143,73 @@ cards.forEach((card,i)=>{card.addEventListener('click',e=>{e.stopPropagation();i
 document.getElementById('shell').addEventListener('click',e=>{if(!e.target.closest('.game-card,.rectangle-card,.top-icon,.profile'))clearSelection()});
 document.querySelectorAll('[data-shortcut]').forEach((icon,i)=>{const activate=()=>{document.querySelectorAll('.top-icon').forEach(x=>x.classList.remove('active'));icon.classList.add('active');showToast(({Home:'Home dashboard',Community:'Community is ready to connect',Capture:'Capture & share',Settings:'Dashboard settings',Notifications:'You’re all caught up'})[icon.dataset.shortcut]||icon.dataset.shortcut)};icon.addEventListener('click',activate);icon.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();activate()}})});
 document.getElementById('profileButton').addEventListener('click',()=>showToast('Signed in as Patrick_Mango'));
+
+const modalBackdrop=document.getElementById('modalBackdrop'),modalTitle=document.getElementById('modalTitle'),modalContent=document.getElementById('modalContent');
+const profileButton=document.getElementById('profileButton'),controllerPill=document.getElementById('controllerPill');
+const saved=(key,fallback)=>{try{return localStorage.getItem(key)||fallback}catch{return fallback}};
+const save=(key,value)=>{try{localStorage.setItem(key,value)}catch{}};
+let gamerTag=saved('mcx-gamertag','Patrick_Mango'),gamerScore=Number(saved('mcx-score','0'))||0;
+let selectedCount=Number(saved('mcx-selected-count','0'))||0,unlocked=new Set(JSON.parse(saved('mcx-achievements','[]')));
+function updateProfile(){const name=document.querySelector('.profile-name');if(name)name.textContent=gamerTag;const avatar=document.querySelector('.avatar');if(avatar)avatar.textContent=(gamerTag.trim()[0]||'P').toUpperCase()}
+function openModal(mode='settings'){
+ modalTitle.textContent=mode==='profile'?'Your Xbox profile':mode==='achievements'?'Achievements':'Dashboard settings';
+ if(mode==='profile'){
+ modalContent.innerHTML='<p>Personalize your local dashboard profile. These settings are saved in this browser.</p><label class="modal-label" for="gamerTagInput">Gamertag</label><input id="gamerTagInput" maxlength="18" value="'+escapeHtml(gamerTag)+'" autocomplete="off"><div class="setting-row"><div><strong>G-Score</strong><small>Earn points as you explore the dashboard.</small></div><span class="score">'+gamerScore+' G</span></div><div class="modal-actions"><button class="xbtn primary" id="saveProfile">Save profile</button><button class="xbtn" id="showAchievements">View achievements</button></div>';
+ document.getElementById('saveProfile').onclick=()=>{const value=document.getElementById('gamerTagInput').value.trim();if(!value){showToast('Enter a gamertag first');return}gamerTag=value;save('mcx-gamertag',gamerTag);updateProfile();closeModal();showToast('Profile saved')};
+ document.getElementById('showAchievements').onclick=()=>openModal('achievements');
+ }else if(mode==='achievements'){
+ const defs=[['first','First Steps','Select your first dashboard tile · +10 G'],['explorer','Explorer','Select 5 dashboard tiles · +25 G'],['collector','Dashboard Regular','Select 10 dashboard tiles · +50 G'],['controller','Controller Ready','Connect a game controller · +25 G']];
+ modalContent.innerHTML='<p>Achievements are saved locally in this browser.</p><div class="setting-row"><div><strong>Total G-Score</strong><small>Your dashboard progress</small></div><span class="score">'+gamerScore+' G</span></div><div class="achievement-list">'+defs.map(d=>'<div class="achievement"><div class="achievement-icon">'+(unlocked.has(d[0])?'✓':'◇')+'</div><div><strong>'+d[1]+'</strong><small>'+d[2]+'</small></div><span style="margin-left:auto;color:'+(unlocked.has(d[0])?'var(--green2)':'#829096')+'">'+(unlocked.has(d[0])?'UNLOCKED':'LOCKED')+'</span></div>').join('')+'</div><div class="modal-actions"><button class="xbtn" id="backSettings">Back to settings</button></div>';
+ document.getElementById('backSettings').onclick=()=>openModal('settings');
+ }else{
+ modalContent.innerHTML='<p>Make the dashboard feel like your own. Changes apply immediately.</p><div class="setting-row"><div><strong>Dashboard theme</strong><small>Choose the accent color</small></div><select id="accentChoice" aria-label="Accent color"><option value="green">Xbox green</option><option value="blue">Electric blue</option><option value="purple">Neon purple</option></select></div><div class="setting-row"><div><strong>Motion effects</strong><small>Tile lift and transitions</small></div><input id="motionChoice" type="checkbox" style="width:20px;height:20px;accent-color:#20d46b"></div><div class="setting-row"><div><strong>Controller support</strong><small>Gamepad works when connected to this browser</small></div><span class="score" id="controllerStatus">Searching…</span></div><div class="modal-actions"><button class="xbtn primary" id="saveSettings">Save settings</button><button class="xbtn" id="openAchievements">Achievements</button><button class="xbtn" id="openProfile">Edit profile</button></div>';
+ const accent=document.getElementById('accentChoice');accent.value=saved('mcx-accent','green');accent.onchange=()=>applyAccent(accent.value);
+ const motion=document.getElementById('motionChoice');motion.checked=saved('mcx-motion','on')!=='off';
+ document.getElementById('saveSettings').onclick=()=>{save('mcx-accent',accent.value);applyAccent(accent.value);save('mcx-motion',motion.checked?'on':'off');document.body.classList.toggle('reduce-dashboard-motion',!motion.checked);closeModal();showToast('Settings saved')};
+ document.getElementById('openAchievements').onclick=()=>openModal('achievements');document.getElementById('openProfile').onclick=()=>openModal('profile');
+ }
+ modalBackdrop.classList.add('open');modalBackdrop.setAttribute('aria-hidden','false');
+ const first=modalContent.querySelector('input,button,select');if(first)first.focus({preventScroll:true});
+}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function closeModal(){modalBackdrop.classList.remove('open');modalBackdrop.setAttribute('aria-hidden','true')}
+function applyAccent(v){const colors={green:['#20d46b','#3bf18a'],blue:['#299cff','#72c3ff'],purple:['#a66cff','#d0aaff']};const c=colors[v]||colors.green;document.documentElement.style.setProperty('--green',c[0]);document.documentElement.style.setProperty('--green2',c[1]);document.documentElement.style.setProperty('--focus',c[1])}
+function unlockAchievement(id,name,points){if(unlocked.has(id))return;unlocked.add(id);gamerScore+=points;save('mcx-achievements',JSON.stringify([...unlocked]));save('mcx-score',String(gamerScore));showToast('🏆 Achievement unlocked: '+name+' · +'+points+' G');}
+function handleTileProgress(){selectedCount++;save('mcx-selected-count',String(selectedCount));if(selectedCount>=1)unlockAchievement('first','First Steps',10);if(selectedCount>=5)unlockAchievement('explorer','Explorer',25);if(selectedCount>=10)unlockAchievement('collector','Dashboard Regular',50)}
+function updateProfileButton(){const b=document.getElementById('profileButton');if(b)b.setAttribute('aria-label','Open profile for '+gamerTag)}
+profileButton.addEventListener('click',()=>openModal('profile'));
+document.getElementById('modalClose').addEventListener('click',closeModal);
+modalBackdrop.addEventListener('click',e=>{if(e.target===modalBackdrop)closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modalBackdrop.classList.contains('open')){closeModal();e.stopImmediatePropagation()}});
+document.querySelector('[data-shortcut="Settings"]')?.addEventListener('click',()=>openModal('settings'));
+document.querySelector('[data-shortcut="Notifications"]')?.addEventListener('click',()=>openModal('achievements'));
+updateProfile();updateProfileButton();applyAccent(saved('mcx-accent','green'));if(saved('mcx-motion','on')==='off')document.body.classList.add('reduce-dashboard-motion');
+const originalSelectCard=selectCard;
+selectCard=function(card,focus=false){const changed=cards.indexOf(card)!==selected;originalSelectCard(card,focus);if(changed)handleTileProgress()};
+function getPads(){try{return [...(navigator.getGamepads?navigator.getGamepads():[])].filter(Boolean)}catch{return []}}
+let lastPadButtons=[],lastAxisMove=0,hadPad=false;
+function gamepadFrame(){
+ const pads=getPads(),pad=pads.find(p=>p.connected);
+ if(pad){controllerPill.classList.add('show');if(!hadPad){hadPad=true;showToast('🎮 Controller connected');unlockAchievement('controller','Controller Ready',25)}
+ const now=performance.now(),pressed=i=>!!pad.buttons[i]?.pressed;
+ const edge=i=>pressed(i)&&!lastPadButtons[i];
+ if(now-lastAxisMove>190){
+ let dx=0,dy=0;
+ if(pressed(14)||pad.axes[0]<-.55)dx=-1;else if(pressed(15)||pad.axes[0]>.55)dx=1;
+ if(pressed(12)||pad.axes[1]<-.55)dy=-1;else if(pressed(13)||pad.axes[1]>.55)dy=1;
+ if(dx||dy){let n=selected<0?0:selected;const cols=9;if(dx)n=Math.max(0,Math.min(cards.length-1,n+dx));if(dy)n=Math.max(0,Math.min(cards.length-1,n+dy*cols));selectCard(cards[n],true);lastAxisMove=now}
+ }
+ if(edge(0)){if(modalBackdrop.classList.contains('open')){const active=document.activeElement;if(active?.tagName==='BUTTON')active.click();else if(active?.tagName==='INPUT')active.blur()}else if(selected>=0)selectCard(cards[selected])}
+ if(edge(1)){if(modalBackdrop.classList.contains('open'))closeModal();else clearSelection()}
+ if(edge(9)){if(modalBackdrop.classList.contains('open'))closeModal();else openModal('settings')}
+ lastPadButtons=pad.buttons.map(b=>!!b.pressed);
+ }else{controllerPill.classList.remove('show');hadPad=false;lastPadButtons=[]}
+ requestAnimationFrame(gamepadFrame)
+}
+if('getGamepads'in navigator)requestAnimationFrame(gamepadFrame);
+
 function updateClock(){document.getElementById('clock').textContent=new Intl.DateTimeFormat(undefined,{hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date())}updateClock();setInterval(updateClock,15000);
-document.addEventListener('keydown',e=>{const active=document.activeElement;const arrows=['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'];if(arrows.includes(e.key)){e.preventDefault();let next=selected<0?0:selected;if(e.key==='ArrowLeft')next=Math.max(0,next-1);if(e.key==='ArrowRight')next=Math.min(cards.length-1,next+1);if(e.key==='ArrowUp')next=Math.max(0,next-9);if(e.key==='ArrowDown')next=Math.min(cards.length-1,next+9);selectCard(cards[next],true)}if(e.key==='Escape'||e.key.toLowerCase()==='b'){clearSelection()}if(e.key==='Enter'&&(active.classList.contains('game-card')||active.classList.contains('rectangle-card'))){selectCard(active)}if(e.key.toLowerCase()==='a'&&selected>=0)selectCard(cards[selected])});
+document.addEventListener('keydown',e=>{if(modalBackdrop.classList.contains('open'))return;const active=document.activeElement;const arrows=['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'];if(arrows.includes(e.key)){e.preventDefault();let next=selected<0?0:selected;if(e.key==='ArrowLeft')next=Math.max(0,next-1);if(e.key==='ArrowRight')next=Math.min(cards.length-1,next+1);if(e.key==='ArrowUp')next=Math.max(0,next-9);if(e.key==='ArrowDown')next=Math.min(cards.length-1,next+9);selectCard(cards[next],true)}if(e.key==='Escape'||e.key.toLowerCase()==='b'){clearSelection()}if(e.key==='Enter'&&(active.classList.contains('game-card')||active.classList.contains('rectangle-card'))){selectCard(active)}if(e.key.toLowerCase()==='a'&&selected>=0)selectCard(cards[selected])});
 const dot=document.getElementById('cursorDot');document.addEventListener('mousemove',e=>{dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';dot.style.opacity='1'});document.addEventListener('mouseleave',()=>dot.style.opacity='0');document.addEventListener('mousedown',()=>dot.style.transform='translate(-50%,-50%) scale(.78)');document.addEventListener('mouseup',()=>dot.style.transform='translate(-50%,-50%) scale(1)');
 document.querySelectorAll('img').forEach(img=>img.addEventListener('error',()=>{if(img.classList.contains('top-icon'))img.style.display='none'}));
 })();
